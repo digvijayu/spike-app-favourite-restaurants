@@ -29,11 +29,12 @@ class Map extends Component {
           defaultZoom={defaultProps.zoom}
           defaultAverageCenter={true}
           averageCenter={true}>
-          {favouriteRestaurants.map(restaurant => (
+          {favouriteRestaurants.map((restaurant, index) => (
             <MapPin
               lat={restaurant.geoLocation.lat}
               lng={restaurant.geoLocation.lng}
               restaurant={restaurant}
+              key={index}
             />
           ))}
         </GoogleMapReact>

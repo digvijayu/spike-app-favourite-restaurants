@@ -9,8 +9,8 @@ class RestaurantList extends Component {
         {favouriteRestaurants.length < 1 && (
           <div>No Favourite Restaurants Available.</div>
         )}
-        {favouriteRestaurants.map(restaurant => (
-          <div>
+        {favouriteRestaurants.map((restaurant, index) => (
+          <div key={index}>
             <div>{restaurant.name}</div>
             <div>{restaurant.favouriteFood}</div>
             <div>{restaurant.rating}</div>
