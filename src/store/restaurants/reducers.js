@@ -85,6 +85,13 @@ export const reducer = (
           geoLocation: null
         }
       };
+    case 'REMOVE_RESTAURANT':
+      return {
+        ...state,
+        favouriteRestaurants: state.favouriteRestaurants.filter(
+          restaurant => restaurant.name !== action.restaurant.name
+        )
+      };
     default:
       return state;
   }

@@ -35,3 +35,8 @@ export const restaurantLocationError = error => ({
   type: 'RESTAURANT_LOCATION_ERROR',
   error
 });
+
+export const removeRestaurant = restaurant => ({
+  type: 'REMOVE_RESTAURANT',
+  restaurant
+});

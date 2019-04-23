@@ -8,7 +8,8 @@ import {
   locateRestaurant,
   addRestaurant,
   restaurantLocationFound,
-  restaurantLocationError
+  restaurantLocationError,
+  removeRestaurant
 } from './../actions';
 
 describe('should test reducer', () => {
@@ -212,6 +213,34 @@ describe('should test reducer', () => {
     expect(newState).toEqual({
       ...prevState,
       error: { message: 'Error while fetching the location.' }
+    });
+  });
+
+  it('should remove a restaurant from the list', () => {
+    const prevState = {
+      ...initialAppState,
+      favouriteRestaurants: [
+        {
+          name: 'Burger Palace',
+          favouriteFood: 'Burger',
+          rating: 4,
+          geoLocation: null
+        }
+      ]
+    };
+    const newState = reducer(
+      prevState,
+      removeRestaurant({
+        name: 'Burger Palace',
+        favouriteFood: 'Burger',
+        rating: 4,
+        geoLocation: null
+      })
+    );
+
+    expect(newState).toEqual({
+      ...prevState,
+      favouriteRestaurants: []
     });
   });
 });

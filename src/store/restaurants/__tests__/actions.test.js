@@ -7,7 +7,8 @@ import {
   addRestaurant,
   locateRestaurant,
   restaurantLocationFound,
-  restaurantLocationError
+  restaurantLocationError,
+  removeRestaurant
 } from './../actions';
 
 describe('should test actions', () => {
@@ -62,6 +63,13 @@ describe('should test actions', () => {
     expect(restaurantLocationError({ mock: 'error' })).toEqual({
       type: 'RESTAURANT_LOCATION_ERROR',
       error: { mock: 'error' }
+    });
+  });
+
+  test('should counstuct action, removeRestaurant', () => {
+    expect(removeRestaurant({ mock: 'restaurant' })).toEqual({
+      type: 'REMOVE_RESTAURANT',
+      restaurant: { mock: 'restaurant' }
     });
   });
 });
