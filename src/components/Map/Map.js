@@ -1,34 +1,52 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import { connect } from 'react-redux';
 import { GOOGLE_MAPS_API } from './../../utils/constants';
+import MapPin from './../MapPin';
 
 class Map extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
+  getCenter() {
+    const { favouriteRestaurants } = this.props;
+    const lats = favouriteRestaurants.map(r => r.geoLocation.lat);
+    const lngs = favouriteRestaurants.map(r => r.geoLocation.lng);
+    return {
+      lat: (Math.max.apply(null, lats) + Math.min.apply(null, lats)) / 2 || 0,
+      lng: (Math.max.apply(null, lngs) + Math.min.apply(null, lngs)) / 2 || 0
+    };
+  }
 
   render() {
+    const { favouriteRestaurants } = this.props;
+    const defaultProps = {
+      center: this.getCenter(),
+      zoom: 4
+    };
     return (
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GOOGLE_MAPS_API }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}>
-          {
-            // <AnyReactComponent
-            //   lat={59.955413}
-            //   lng={30.337844}
-            //   text="My Marker"
-            // />
-          }
+          defaultCenter={defaultProps.center}
+          defaultZoom={defaultProps.zoom}
+          defaultAverageCenter={true}
+          averageCenter={true}>
+          {favouriteRestaurants.map(restaurant => (
+            <MapPin
+              lat={restaurant.geoLocation.lat}
+              lng={restaurant.geoLocation.lng}
+              restaurant={restaurant}
+            />
+          ))}
         </GoogleMapReact>
       </div>
     );
   }
 }
 
-export default Map;
+const mapStateToProps = state => ({
+  favouriteRestaurants: state.restaurants.favouriteRestaurants
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Map);
