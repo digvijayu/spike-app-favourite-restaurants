@@ -4,6 +4,7 @@ import {
   restaurantLocationFound,
   restaurantLocationError
 } from './actions';
+import { GOOGLE_MAPS_API } from './../../utils/constants';
 
 export const loadLocationThunk = address => async dispatch => {
   dispatch(locateRestaurant());
@@ -16,7 +17,7 @@ export const loadLocationThunk = address => async dispatch => {
 };
 
 const loadLocation = address => {
-  Geocode.setApiKey('');
+  Geocode.setApiKey(GOOGLE_MAPS_API);
   Geocode.enableDebug();
   return Geocode.fromAddress(address);
 };
