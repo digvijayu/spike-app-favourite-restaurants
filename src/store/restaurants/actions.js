@@ -18,10 +18,20 @@ export const changeRating = rating => ({
   rating
 });
 
+export const addRestaurant = () => ({
+  type: 'ADD_RESTAURANT'
+});
+
 export const locateRestaurant = () => ({
   type: 'LOCATE_RESTAURANT'
 });
 
-export const addRestaurant = () => ({
-  type: 'ADD_RESTAURANT'
+export const restaurantLocationFound = location => ({
+  type: 'RESTAURANT_LOCATION_FOUND',
+  location
+});
+
+export const restaurantLocationError = error => ({
+  type: 'RESTAURANT_LOCATION_ERROR',
+  error
 });

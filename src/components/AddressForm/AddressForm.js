@@ -8,6 +8,7 @@ import {
   locateRestaurant,
   addRestaurant
 } from './../../store/restaurants/actions';
+import { loadLocationThunk } from './../../store/restaurants/thunk';
 
 class AddressForm extends Component {
   handleOnNameChange(e) {
@@ -20,6 +21,10 @@ class AddressForm extends Component {
 
   handleOnRatingChange(e) {
     this.props.changeRating(e.target.value);
+  }
+
+  handleOnLoadClick() {
+    this.props.loadGeoLocation(this.props.newRestaurant.name);
   }
 
   handleOnAddClick() {
@@ -59,7 +64,9 @@ class AddressForm extends Component {
           />
         </div>
         <div>
-          {!geoLocation && <button>Locate</button>}
+          {!geoLocation && (
+            <button onClick={this.handleOnLoadClick.bind(this)}>Locate</button>
+          )}
           {geoLocation && (
             <button onClick={this.handleOnAddClick.bind(this)}>
               Add To Favourites
@@ -82,7 +89,8 @@ const mapActionsToProps = dispatch => ({
     dispatch(changeFavouriteFood(favouriteFood)),
   changeRating: rating => dispatch(changeRating(rating)),
   locateRestaurant: () => dispatch(locateRestaurant()),
-  addRestaurant: () => dispatch(addRestaurant())
+  addRestaurant: () => dispatch(addRestaurant()),
+  loadGeoLocation: address => loadLocationThunk(address)(dispatch)
 });
 
 export default connect(

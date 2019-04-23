@@ -6,7 +6,9 @@ import {
   changeFavouriteFood,
   changeRating,
   locateRestaurant,
-  addRestaurant
+  addRestaurant,
+  restaurantLocationFound,
+  restaurantLocationError
 } from './../actions';
 
 describe('should test reducer', () => {
@@ -21,7 +23,8 @@ describe('should test reducer', () => {
         favouriteFood: '',
         rating: 0,
         geoLocation: null
-      }
+      },
+      loadingGeoLocation: false
     };
     expect(initialAppState).toEqual(expected);
   });
@@ -151,6 +154,64 @@ describe('should test reducer', () => {
         rating: 0,
         geoLocation: null
       }
+    });
+  });
+
+  it('should set loading when location is being searched', () => {
+    const prevState = {
+      ...initialAppState
+    };
+    const newState = reducer(prevState, locateRestaurant());
+
+    expect(newState).toEqual({
+      ...prevState,
+      loadingGeoLocation: true
+    });
+  });
+
+  it('should set location when found', () => {
+    const prevState = {
+      ...initialAppState,
+      newRestaurant: {
+        name: 'Burger Palace',
+        favouriteFood: 'Burger',
+        rating: 4,
+        geoLocation: null
+      }
+    };
+    const newState = reducer(
+      prevState,
+      restaurantLocationFound({ lat: 0, long: 0 })
+    );
+
+    expect(newState).toEqual({
+      ...prevState,
+      newRestaurant: {
+        ...prevState.newRestaurant,
+        geoLocation: { lat: 0, long: 0 }
+      },
+      loadingGeoLocation: false
+    });
+  });
+
+  it('should register an error when there is an error on loading location', () => {
+    const prevState = {
+      ...initialAppState,
+      newRestaurant: {
+        name: 'Burger Palace',
+        favouriteFood: 'Burger',
+        rating: 4,
+        geoLocation: null
+      }
+    };
+    const newState = reducer(
+      prevState,
+      restaurantLocationError({ mock: 'error' })
+    );
+
+    expect(newState).toEqual({
+      ...prevState,
+      error: { message: 'Error while fetching the location.' }
     });
   });
 });

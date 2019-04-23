@@ -8,7 +8,8 @@ export const initialAppState = {
     favouriteFood: '',
     rating: 0,
     geoLocation: null
-  }
+  },
+  loadingGeoLocation: false
 };
 
 export const reducer = (
@@ -48,7 +49,27 @@ export const reducer = (
       };
     case 'LOCATE_RESTAURANT':
       return {
-        ...state
+        ...state,
+        loadingGeoLocation: true
+      };
+    case 'RESTAURANT_LOCATION_FOUND':
+      return {
+        ...state,
+        newRestaurant: {
+          ...state.newRestaurant,
+          geoLocation: action.location
+        },
+        loadingGeoLocation: false
+      };
+    case 'RESTAURANT_LOCATION_ERROR':
+      return {
+        ...state,
+        newRestaurant: {
+          ...state.newRestaurant,
+          geoLocation: null
+        },
+        error: { message: 'Error while fetching the location.' },
+        loadingGeoLocation: false
       };
     case 'ADD_RESTAURANT':
       return {

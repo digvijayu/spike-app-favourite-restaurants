@@ -1,12 +1,22 @@
-import axios from 'axios';
-import { loadRecipes, receivedRecipes, errorLoadingRecipes } from './actions';
+import Geocode from 'react-geocode';
+import {
+  locateRestaurant,
+  restaurantLocationFound,
+  restaurantLocationError
+} from './actions';
 
-// export const loadRecipesThunk = () => async dispatch => {
-//   dispatch(loadRecipes());
-//   apiRequest()
-//     .then(res => dispatch(receivedRecipes(res)))
-//     .catch(err => dispatch(errorLoadingRecipes(err)));
-// };
-//
-// const apiRequest = () =>
-//   axios.get('/frontend-dev-test/recipes.json').then(response => response.data);
+export const loadLocationThunk = address => async dispatch => {
+  dispatch(locateRestaurant());
+  loadLocation(address)
+    .then(res => {
+      const { lat, lng } = res.results[0].geometry.location;
+      dispatch(restaurantLocationFound({ lat, lng }));
+    })
+    .catch(err => dispatch(restaurantLocationError(err)));
+};
+
+const loadLocation = address => {
+  Geocode.setApiKey('AIzaSyCi3t_ZHbRtDDrv0mbZtqTggkkLtiKkEVo');
+  Geocode.enableDebug();
+  return Geocode.fromAddress(address);
+};

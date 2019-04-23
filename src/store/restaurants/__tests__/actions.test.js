@@ -4,8 +4,10 @@ import {
   changeName,
   changeFavouriteFood,
   changeRating,
+  addRestaurant,
   locateRestaurant,
-  addRestaurant
+  restaurantLocationFound,
+  restaurantLocationError
 } from './../actions';
 
 describe('should test actions', () => {
@@ -46,6 +48,20 @@ describe('should test actions', () => {
   test('should counstuct action, addRestaurant', () => {
     expect(addRestaurant()).toEqual({
       type: 'ADD_RESTAURANT'
+    });
+  });
+
+  test('should counstuct action, restaurantLocationFound', () => {
+    expect(restaurantLocationFound({ lat: 0, long: 0 })).toEqual({
+      type: 'RESTAURANT_LOCATION_FOUND',
+      location: { lat: 0, long: 0 }
+    });
+  });
+
+  test('should counstuct action, restaurantLocationError', () => {
+    expect(restaurantLocationError({ mock: 'error' })).toEqual({
+      type: 'RESTAURANT_LOCATION_ERROR',
+      error: { mock: 'error' }
     });
   });
 });
