@@ -16,7 +16,7 @@ export const loadLocationThunk = address => async dispatch => {
 };
 
 const loadLocation = address => {
-  Geocode.setApiKey('AIzaSyCi3t_ZHbRtDDrv0mbZtqTggkkLtiKkEVo');
+  Geocode.setApiKey('');
   Geocode.enableDebug();
   return Geocode.fromAddress(address);
 };
