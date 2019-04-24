@@ -8,7 +8,7 @@ import {
 
 const RestaurantListItem = styled.div`
   border-bottom: 1px solid #ccc;
-  padding: 1rem;
+  padding: 1rem 2.5rem 1rem 1rem;
   position: relative;
   cursor: pointer;
   background: ${props => (props.isSelected ? '#60a3bc' : 'inherit')};
