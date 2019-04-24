@@ -26,6 +26,7 @@ class Map extends Component {
     return (
       <MapContainer>
         <GoogleMapReact
+          className="Map__google-map"
           bootstrapURLKeys={{ key: GOOGLE_MAPS_API }}
           center={defaultProps.center}
           zoom={defaultProps.zoom}
