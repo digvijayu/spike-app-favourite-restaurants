@@ -21,10 +21,11 @@ class Map extends Component {
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GOOGLE_MAPS_API }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
+          center={defaultProps.center}
+          zoom={defaultProps.zoom}
           defaultAverageCenter={true}
           averageCenter={true}
+          yesIWantToUseGoogleMapApiInternals
           onChildClick={this.handleOnChildClick.bind(this)}>
           {favouriteRestaurants.map((restaurant, index) => (
             <MapPin
@@ -55,6 +56,12 @@ export default connect(
 )(Map);
 
 const getCenter = favouriteRestaurants => {
+  const selectedRestaurant = favouriteRestaurants.filter(
+    restarurant => restarurant.isSelected
+  )[0];
+  if (selectedRestaurant) {
+    return selectedRestaurant.geoLocation;
+  }
   const lats = favouriteRestaurants.map(r => r.geoLocation.lat);
   const lngs = favouriteRestaurants.map(r => r.geoLocation.lng);
   return {
