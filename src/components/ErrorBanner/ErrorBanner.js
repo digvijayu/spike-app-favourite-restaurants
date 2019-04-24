@@ -19,7 +19,11 @@ class ErrorBanner extends Component {
 
     if (!message) return <></>;
 
-    return <ErrorBannerContainer>{message}</ErrorBannerContainer>;
+    return (
+      <ErrorBannerContainer className="ErrorBanner">
+        {message}
+      </ErrorBannerContainer>
+    );
   }
 }
 

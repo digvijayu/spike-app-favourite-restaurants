@@ -151,4 +151,10 @@ context('App Tests', () => {
 
     cy.get('.RestaurantList__no-items-text').should('be.visible');
   });
+
+  it('should display error banner when the location is not found', () => {
+    cy.get('.AddressForm__name-input').type('this address does not exist');
+    cy.get('.AddressForm__locate-button').click();
+    cy.get('.ErrorBanner').should('be.visible');
+  });
 });
