@@ -25,6 +25,7 @@ export const reducer = (
     case 'CHANGE_NAME':
       return {
         ...state,
+        error: { message: '' },
         newRestaurant: {
           ...state.newRestaurant,
           name: action.name,
@@ -34,6 +35,7 @@ export const reducer = (
     case 'CHANGE_FAVOURITE_FOOD':
       return {
         ...state,
+        error: { message: '' },
         newRestaurant: {
           ...state.newRestaurant,
           favouriteFood: action.favouriteFood
@@ -42,6 +44,7 @@ export const reducer = (
     case 'CHANGE_RATING':
       return {
         ...state,
+        error: { message: '' },
         newRestaurant: {
           ...state.newRestaurant,
           rating: action.rating
@@ -50,11 +53,13 @@ export const reducer = (
     case 'LOCATE_RESTAURANT':
       return {
         ...state,
+        error: { message: '' },
         loadingGeoLocation: true
       };
     case 'RESTAURANT_LOCATION_FOUND':
       return {
         ...state,
+        error: { message: '' },
         newRestaurant: {
           ...state.newRestaurant,
           geoLocation: action.location
@@ -68,15 +73,22 @@ export const reducer = (
           ...state.newRestaurant,
           geoLocation: null
         },
-        error: { message: 'Error while fetching the location.' },
+        error: {
+          message:
+            'Either the location does not exist or there was an error while fetching the location.'
+        },
         loadingGeoLocation: false
       };
     case 'ADD_RESTAURANT':
       return {
         ...state,
+        error: { message: '' },
         favouriteRestaurants: [
-          ...state.favouriteRestaurants,
-          { ...state.newRestaurant }
+          ...state.favouriteRestaurants.map(restaurant => ({
+            ...restaurant,
+            isSelected: false
+          })),
+          { ...state.newRestaurant, isSelected: true }
         ],
         newRestaurant: {
           name: '',
@@ -88,9 +100,19 @@ export const reducer = (
     case 'REMOVE_RESTAURANT':
       return {
         ...state,
+        error: { message: '' },
         favouriteRestaurants: state.favouriteRestaurants.filter(
           restaurant => restaurant.name !== action.restaurant.name
         )
+      };
+    case 'SELECT_RESTAURANT':
+      return {
+        ...state,
+        error: { message: '' },
+        favouriteRestaurants: state.favouriteRestaurants.map(restaurant => ({
+          ...restaurant,
+          isSelected: restaurant.name === action.restaurant.name
+        }))
       };
     default:
       return state;

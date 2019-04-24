@@ -5,6 +5,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import AddressForm from './components/AddressForm';
 import Map from './components/Map';
 import RestaurantList from './components/RestaurantList';
+import ErrorBanner from './components/ErrorBanner';
 import configureStore from './store';
 
 const { store, persistor } = configureStore();
@@ -28,6 +29,9 @@ const AppLayout = styled.div`
 
 const LeftContainer = styled.div`
   width: 25%;
+  min-width: 250px;
+  box-shadow: 0 0 1rem 0.1rem #ccc;
+  z-index: 1;
 `;
 
 const RightContainer = styled.div`
@@ -40,6 +44,7 @@ function App() {
       <GlobalStyle />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <ErrorBanner />
           <AppLayout>
             <LeftContainer>
               <AddressForm />

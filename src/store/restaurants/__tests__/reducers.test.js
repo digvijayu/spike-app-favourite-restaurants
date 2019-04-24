@@ -9,7 +9,8 @@ import {
   addRestaurant,
   restaurantLocationFound,
   restaurantLocationError,
-  removeRestaurant
+  removeRestaurant,
+  selectRestaurant
 } from './../actions';
 
 describe('should test reducer', () => {
@@ -130,6 +131,15 @@ describe('should test reducer', () => {
   it('should allow user to add new restaurant', () => {
     const prevState = {
       ...initialAppState,
+      favouriteRestaurants: [
+        {
+          name: 'some other selected place',
+          favouriteFood: 'Burger',
+          rating: 4,
+          geoLocation: { lat: 0, long: 0 },
+          isSelected: true
+        }
+      ],
       newRestaurant: {
         name: 'Burger Palace',
         favouriteFood: 'Burger',
@@ -143,10 +153,18 @@ describe('should test reducer', () => {
       ...prevState,
       favouriteRestaurants: [
         {
+          name: 'some other selected place',
+          favouriteFood: 'Burger',
+          rating: 4,
+          geoLocation: { lat: 0, long: 0 },
+          isSelected: false
+        },
+        {
           name: 'Burger Palace',
           favouriteFood: 'Burger',
           rating: 4,
-          geoLocation: { lat: 0, long: 0 }
+          geoLocation: { lat: 0, long: 0 },
+          isSelected: true
         }
       ],
       newRestaurant: {
@@ -212,7 +230,10 @@ describe('should test reducer', () => {
 
     expect(newState).toEqual({
       ...prevState,
-      error: { message: 'Error while fetching the location.' }
+      error: {
+        message:
+          'Either the location does not exist or there was an error while fetching the location.'
+      }
     });
   });
 
@@ -241,6 +262,43 @@ describe('should test reducer', () => {
     expect(newState).toEqual({
       ...prevState,
       favouriteRestaurants: []
+    });
+  });
+
+  it('should select a restaurant from the list', () => {
+    const prevState = {
+      ...initialAppState,
+      favouriteRestaurants: [
+        {
+          name: 'Burger Palace',
+          favouriteFood: 'Burger',
+          rating: 4,
+          geoLocation: null,
+          isSelected: false
+        }
+      ]
+    };
+    const newState = reducer(
+      prevState,
+      selectRestaurant({
+        name: 'Burger Palace',
+        favouriteFood: 'Burger',
+        rating: 4,
+        geoLocation: null
+      })
+    );
+
+    expect(newState).toEqual({
+      ...prevState,
+      favouriteRestaurants: [
+        {
+          name: 'Burger Palace',
+          favouriteFood: 'Burger',
+          rating: 4,
+          geoLocation: null,
+          isSelected: true
+        }
+      ]
     });
   });
 });

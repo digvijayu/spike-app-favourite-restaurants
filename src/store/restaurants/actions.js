@@ -40,3 +40,8 @@ export const removeRestaurant = restaurant => ({
   type: 'REMOVE_RESTAURANT',
   restaurant
 });
+
+export const selectRestaurant = restaurant => ({
+  type: 'SELECT_RESTAURANT',
+  restaurant
+});

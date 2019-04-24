@@ -67,6 +67,22 @@ const Button = styled.button`
     -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
     transition: all 0.4s ease 0s;
   }
+
+  &:disabled {
+    text-shadow: none;
+    transition: all 0.4s ease 0s;
+    opacity: 0.6;
+  }
+`;
+
+const LocateContainer = styled.div`
+  margin-top: 0.5rem;
+`;
+
+const LocatedText = styled.div`
+  margin-top: 0.5rem;
+  font-size: 0.6rem;
+  color: #ccc;
 `;
 
 class AddressForm extends Component {
@@ -90,6 +106,13 @@ class AddressForm extends Component {
     this.props.addRestaurant();
   }
 
+  isFormValid() {
+    const {
+      newRestaurant: { name, favouriteFood, geoLocation }
+    } = this.props;
+    return !!name && !!favouriteFood && !!geoLocation;
+  }
+
   render() {
     const {
       newRestaurant: { name, favouriteFood, rating, geoLocation }
@@ -97,7 +120,7 @@ class AddressForm extends Component {
     return (
       <Form>
         <InputContainer>
-          <Label>Address</Label>
+          <Label>Address*</Label>
           <div>
             <Input
               type="text"
@@ -105,9 +128,24 @@ class AddressForm extends Component {
               onChange={this.handleOnNameChange.bind(this)}
             />
           </div>
+          {geoLocation && (
+            <LocatedText>
+              The restaurant was located, fill the rest and click Add To
+              Favourites.
+            </LocatedText>
+          )}
+          {!geoLocation && (
+            <LocateContainer>
+              <Button
+                disabled={!!!name}
+                onClick={this.handleOnLoadClick.bind(this)}>
+                Locate
+              </Button>
+            </LocateContainer>
+          )}
         </InputContainer>
         <InputContainer>
-          <Label>Favourite Food</Label>
+          <Label>Favourite Food*</Label>
           <div>
             <Input
               type="text"
@@ -129,14 +167,11 @@ class AddressForm extends Component {
           </div>
         </InputContainer>
         <div>
-          {!geoLocation && (
-            <Button onClick={this.handleOnLoadClick.bind(this)}>Locate</Button>
-          )}
-          {geoLocation && (
-            <Button onClick={this.handleOnAddClick.bind(this)}>
-              Add To Favourites
-            </Button>
-          )}
+          <Button
+            disabled={!this.isFormValid()}
+            onClick={this.handleOnAddClick.bind(this)}>
+            Add To Favourites
+          </Button>
         </div>
       </Form>
     );

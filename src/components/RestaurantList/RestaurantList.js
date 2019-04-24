@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { removeRestaurant } from './../../store/restaurants/actions';
+import {
+  removeRestaurant,
+  selectRestaurant
+} from './../../store/restaurants/actions';
 
 const RestaurantListItem = styled.div`
   border-bottom: 1px solid #ccc;
   padding: 1rem;
   position: relative;
+  cursor: pointer;
+  background: ${props => (props.isSelected ? '#60a3bc' : 'inherit')};
 `;
 
 const RestaurantTitle = styled.div`
@@ -28,7 +33,7 @@ const RestaurantRating = styled.div`
 const RemoveButton = styled.button`
   color: #ff9494;
   border: 1px solid #ff9494;
-  background: #fff;
+  background: inherit;
   border-radius: 50%;
   cursor: pointer;
   position: absolute;
@@ -49,8 +54,13 @@ const NoItems = styled.div`
 `;
 
 class RestaurantList extends Component {
-  handleOnRemoveClick(restaurant) {
+  handleOnRemoveClick(restaurant, e) {
+    e.stopPropagation();
     this.props.removeRestaurant(restaurant);
+  }
+
+  handleOnSelectClick(restaurant) {
+    this.props.selectRestaurant(restaurant);
   }
 
   render() {
@@ -61,7 +71,10 @@ class RestaurantList extends Component {
           <NoItems>No Favourite Restaurants Available.</NoItems>
         )}
         {favouriteRestaurants.map((restaurant, index) => (
-          <RestaurantListItem key={index}>
+          <RestaurantListItem
+            key={index}
+            isSelected={restaurant.isSelected}
+            onClick={this.handleOnSelectClick.bind(this, restaurant)}>
             <RestaurantTitle>{restaurant.name}</RestaurantTitle>
             <RestaurantFood>{restaurant.favouriteFood}</RestaurantFood>
             <RestaurantRating>{restaurant.rating}</RestaurantRating>
@@ -81,7 +94,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = dispatch => ({
-  removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant))
+  removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant)),
+  selectRestaurant: restaurant => dispatch(selectRestaurant(restaurant))
 });
 
 export default connect(
