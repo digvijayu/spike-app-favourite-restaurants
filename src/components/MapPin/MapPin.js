@@ -17,9 +17,12 @@ const PinImage = styled.img`
 
 class MapPin extends Component {
   render() {
+    const {
+      restaurant: { name }
+    } = this.props;
     return (
       <Pin>
-        <PinImage src={MapPinImage} alt="name" />
+        <PinImage className="MapPin__image" src={MapPinImage} alt={name} />
       </Pin>
     );
   }

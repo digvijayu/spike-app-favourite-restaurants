@@ -123,13 +123,14 @@ class AddressForm extends Component {
           <Label>Address*</Label>
           <div>
             <Input
+              className="AddressForm__name-input"
               type="text"
               value={name}
               onChange={this.handleOnNameChange.bind(this)}
             />
           </div>
           {geoLocation && (
-            <LocatedText>
+            <LocatedText className="AddressForm__located-text">
               The restaurant was located, fill the rest and click Add To
               Favourites.
             </LocatedText>
@@ -137,6 +138,7 @@ class AddressForm extends Component {
           {!geoLocation && (
             <LocateContainer>
               <Button
+                className="AddressForm__locate-button"
                 disabled={!!!name}
                 onClick={this.handleOnLoadClick.bind(this)}>
                 Locate
@@ -148,6 +150,7 @@ class AddressForm extends Component {
           <Label>Favourite Food*</Label>
           <div>
             <Input
+              className="AddressForm__favourite-food-input"
               type="text"
               value={favouriteFood}
               onChange={this.handleOnFavouriteFoodChange.bind(this)}
@@ -158,6 +161,7 @@ class AddressForm extends Component {
           <Label>Rating</Label>
           <div>
             <Input
+              className="AddressForm__rating-input"
               type="range"
               min="0"
               max="5"
@@ -168,6 +172,7 @@ class AddressForm extends Component {
         </InputContainer>
         <div>
           <Button
+            className="AddressForm__add-to-favourite-button"
             disabled={!this.isFormValid()}
             onClick={this.handleOnAddClick.bind(this)}>
             Add To Favourites

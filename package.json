@@ -21,7 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "cypress-browser" : "cypress open",
+    "cypress" : "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"

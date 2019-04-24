@@ -68,17 +68,27 @@ class RestaurantList extends Component {
     return (
       <div>
         {favouriteRestaurants.length < 1 && (
-          <NoItems>No Favourite Restaurants Available.</NoItems>
+          <NoItems className="RestaurantList__no-items-text">
+            No Favourite Restaurants Available.
+          </NoItems>
         )}
         {favouriteRestaurants.map((restaurant, index) => (
           <RestaurantListItem
+            className="RestaurantList__item"
             key={index}
             isSelected={restaurant.isSelected}
             onClick={this.handleOnSelectClick.bind(this, restaurant)}>
-            <RestaurantTitle>{restaurant.name}</RestaurantTitle>
-            <RestaurantFood>{restaurant.favouriteFood}</RestaurantFood>
-            <RestaurantRating>{restaurant.rating}</RestaurantRating>
+            <RestaurantTitle className="RestaurantList__item-name">
+              {restaurant.name}
+            </RestaurantTitle>
+            <RestaurantFood className="RestaurantList__item-favourite-food">
+              {restaurant.favouriteFood}
+            </RestaurantFood>
+            <RestaurantRating className="RestaurantList__item-rating">
+              {restaurant.rating}
+            </RestaurantRating>
             <RemoveButton
+              className="RestaurantList__item-remove"
               onClick={this.handleOnRemoveClick.bind(this, restaurant)}>
               X
             </RemoveButton>
