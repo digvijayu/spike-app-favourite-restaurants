@@ -137,6 +137,18 @@ context('App Tests', () => {
   it('should be able to select any item from the list', () => {
     // select the first item
     cy.get('.RestaurantList__item').eq(0).click();
+    cy.get('.RestaurantList__item').eq(1).click();
+    cy.get('.RestaurantList__item').eq(2).click();
     cy.get('.RestaurantList__item').eq(3).click();
+  });
+
+  it('should be able to removed any item from the list', () => {
+    // select the first item
+    cy.get('.RestaurantList__item .RestaurantList__item-remove').eq(3).click();
+    cy.get('.RestaurantList__item .RestaurantList__item-remove').eq(2).click();
+    cy.get('.RestaurantList__item .RestaurantList__item-remove').eq(1).click();
+    cy.get('.RestaurantList__item .RestaurantList__item-remove').eq(0).click();
+
+    cy.get('.RestaurantList__no-items-text').should('be.visible');
   });
 });

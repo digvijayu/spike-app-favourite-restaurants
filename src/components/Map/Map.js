@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { GOOGLE_MAPS_API } from './../../utils/constants';
 import MapPin from './../MapPin';
 import { selectRestaurant } from './../../store/restaurants/actions';
+
+const MapContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
 
 class Map extends Component {
   handleOnChildClick(key, childProps) {
@@ -13,12 +19,12 @@ class Map extends Component {
   render() {
     const { favouriteRestaurants, center } = this.props;
     const defaultProps = {
-      center: center,
-      zoom: 4
+      center: center.center,
+      zoom: center.zoom
     };
 
     return (
-      <div style={{ height: '100vh', width: '100%' }}>
+      <MapContainer>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GOOGLE_MAPS_API }}
           center={defaultProps.center}
@@ -36,7 +42,7 @@ class Map extends Component {
             />
           ))}
         </GoogleMapReact>
-      </div>
+      </MapContainer>
     );
   }
 }
@@ -60,12 +66,25 @@ const getCenter = favouriteRestaurants => {
     restarurant => restarurant.isSelected
   )[0];
   if (selectedRestaurant) {
-    return selectedRestaurant.geoLocation;
+    return {
+      center: selectedRestaurant.geoLocation,
+      zoom: 11
+    };
   }
+
   const lats = favouriteRestaurants.map(r => r.geoLocation.lat);
   const lngs = favouriteRestaurants.map(r => r.geoLocation.lng);
+
   return {
-    lat: (Math.max.apply(null, lats) + Math.min.apply(null, lats)) / 2 || 0,
-    lng: (Math.max.apply(null, lngs) + Math.min.apply(null, lngs)) / 2 || 0
+    center: {
+      lat:
+        (Math.max.apply(null, lats) + Math.min.apply(null, lats)) / 2 ||
+        51.5124319,
+      lng:
+        (Math.max.apply(null, lngs) + Math.min.apply(null, lngs)) / 2 ||
+        -0.1269096
+    },
+
+    zoom: 1
   };
 };

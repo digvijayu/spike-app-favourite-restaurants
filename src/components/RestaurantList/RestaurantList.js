@@ -32,7 +32,7 @@ const RestaurantRating = styled.div`
 
 const RemoveButton = styled.button`
   color: #ff9494;
-  border: 1px solid #ff9494;
+  border: 2px solid #ff9494;
   background: inherit;
   border-radius: 50%;
   cursor: pointer;
@@ -41,6 +41,7 @@ const RemoveButton = styled.button`
   top: calc(50% - 1rem);
   height: 2rem;
   width: 2rem;
+  font-weight: bold;
 
   &:hover {
     background: #ff9494;
