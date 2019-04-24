@@ -23,7 +23,8 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "cypress-browser" : "cypress open",
-    "cypress" : "cypress run"
+    "cypress" : "cypress run",
+    "now-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
