@@ -43,3 +43,10 @@ Builds the app for production to the `build` folder.
 - The code will be formatted automatically before the commit
 - The application is deployed using [Now](https://zeit.co/now) on below link
   https://spike-app-favourite-restaurants-k6g93jcy1.now.sh/
+  
+## Demo Videos
+### Adding a favourite restaurant
+1. ![Adding a favourite restaurant](docs/AddingFavouriteRestaurants.gif)
+
+### Cypress Tests
+1. ![Cypress Tests](docs/CypressTests.gif)
