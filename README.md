@@ -46,7 +46,7 @@ Builds the app for production to the `build` folder.
   
 ## Demo Videos
 ### Adding a favourite restaurant
-1. ![Adding a favourite restaurant](docs/AddingFavouriteRestaurants.gif)
+![Adding a favourite restaurant](docs/AddingFavouriteRestaurants.gif)
 
 ### Cypress Tests
-1. ![Cypress Tests](docs/CypressTests.gif)
+![Cypress Tests](docs/CypressTests.gif)
