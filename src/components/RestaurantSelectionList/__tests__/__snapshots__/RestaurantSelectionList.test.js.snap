@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should display no items available message when no items are available 1`] = `
+.c0 {
+  max-height: 10rem;
+  -webkit-scroll: auto;
+  -moz-scroll: auto;
+  -ms-scroll: auto;
+  scroll: auto;
+}
+
+.c1 {
+  color: #ccc;
+  -webkit-text-decoration: italic;
+  text-decoration: italic;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    No items available.
+  </div>
+</div>
+`;
+
+exports[`should render the compoenent when items are available in the list 1`] = `
+.c0 {
+  max-height: 10rem;
+  -webkit-scroll: auto;
+  -moz-scroll: auto;
+  -ms-scroll: auto;
+  scroll: auto;
+}
+
+.c1 {
+  padding: 0.5rem 1rem;
+}
+
+.c1:hover {
+  background: blue;
+  color: white;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+    onClick={[Function]}
+  >
+    The Salt Room, 106 Kings Rd, Brighton BN1 2FU
+  </div>
+  <div
+    className="c1"
+    onClick={[Function]}
+  >
+    LEON, 7 Canvey St The Blue Fin Building, London SE1 9AN
+  </div>
+</div>
+`;

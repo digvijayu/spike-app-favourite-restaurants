@@ -22,8 +22,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "cypress-browser" : "cypress open",
-    "cypress" : "cypress run",
+    "cypress-browser": "cypress open",
+    "cypress": "cypress run",
     "now-build": "react-scripts build"
   },
   "eslintConfig": {
@@ -48,6 +48,7 @@
     "eslint-cli": "^1.1.1",
     "eslint-config-react-app": "^4.0.0",
     "husky": "^1.3.1",
+    "jest-styled-components": "^6.3.1",
     "lint-staged": "^8.1.5",
     "prettier": "^1.17.0"
   }

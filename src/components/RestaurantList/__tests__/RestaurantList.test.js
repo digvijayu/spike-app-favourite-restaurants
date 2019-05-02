@@ -12,7 +12,7 @@ describe('should test RestaurantList component', () => {
     expect(list.exists('.RestaurantList__item')).toBeFalsy();
   });
 
-  it.only('should render list items if available', () => {
+  it('should render list items if available', () => {
     const { jsx, store } = testProvider(<RestaurantList />);
     const list = mount(jsx);
     expect(list.exists('.RestaurantList__no-items-text')).toBeTruthy();
