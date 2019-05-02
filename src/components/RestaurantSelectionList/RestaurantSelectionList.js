@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-import { restaurantLocationFound } from './../../store/restaurants/actions';
 
 const ListContainer = styled.div`
   max-height: 10rem;
@@ -60,14 +57,4 @@ RestaurantSelectionList.propTypes = {
   )
 };
 
-const mapStateToProps = state => ({});
-
-const mapactionsToProps = dispatch => ({
-  restaurantLocationFound: restaurant =>
-    dispatch(restaurantLocationFound(restaurant))
-});
-
-export default connect(
-  mapStateToProps,
-  mapactionsToProps
-)(RestaurantSelectionList);
+export default RestaurantSelectionList;

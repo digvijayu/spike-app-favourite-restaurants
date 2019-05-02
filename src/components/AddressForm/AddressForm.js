@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
@@ -10,6 +11,7 @@ import {
   addRestaurant
 } from './../../store/restaurants/actions';
 import { loadLocationThunk } from './../../store/restaurants/thunk';
+import AddressInput from './../AddressInput';
 
 const Form = styled.div`
   border-top: 1px solid #ccc;
@@ -122,6 +124,7 @@ class AddressForm extends Component {
         <InputContainer>
           <Label>Address*</Label>
           <div>
+            <AddressInput onChange={this.handleOnNameChange.bind(this)} />
             <Input
               className="AddressForm__name-input"
               type="text"
@@ -197,6 +200,17 @@ const mapActionsToProps = dispatch => ({
   addRestaurant: () => dispatch(addRestaurant()),
   loadGeoLocation: address => loadLocationThunk(address)(dispatch)
 });
+
+AddressForm.propTypes = {
+  appError: PropTypes.func,
+  changeName: PropTypes.func,
+  changeFavouriteFood: PropTypes.func,
+  changeRating: PropTypes.func,
+  locateRestaurant: PropTypes.func,
+  addRestaurant: PropTypes.func,
+  loadGeoLocation: PropTypes.func,
+  newRestaurant: PropTypes.object
+};
 
 export default connect(
   mapStateToProps,

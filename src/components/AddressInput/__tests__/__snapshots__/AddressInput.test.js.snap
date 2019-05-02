@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render the address input 1`] = `
+<div
+  className="sc-bxivhb eBNJKg"
+>
+  <input
+    className="AddressForm__name-input sc-ifAKCX dEXFVu"
+    onChange={[Function]}
+    type="text"
+    value="Mock Restaurant Name"
+  />
+  <div
+    className="sc-bdVaJa hGdLZl"
+  >
+    <div
+      className="sc-htpNat iDoDco"
+    >
+      No items available.
+    </div>
+  </div>
+</div>
+`;
