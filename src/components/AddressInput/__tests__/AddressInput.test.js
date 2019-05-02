@@ -2,6 +2,7 @@ import React from 'react';
 import reactRenderer from 'react-test-renderer';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import 'jest-styled-components';
 import AddressInput from './../AddressInput';
 import testProvider from './../../../helpers/testProvider';
 
