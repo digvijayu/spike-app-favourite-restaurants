@@ -12,6 +12,7 @@ import {
 } from './../../store/restaurants/actions';
 import { loadLocationThunk } from './../../store/restaurants/thunk';
 import AddressInput from './../AddressInput';
+import { getStars } from './../../utils/Star';
 
 const Form = styled.div`
   border-top: 1px solid #ccc;
@@ -160,6 +161,7 @@ class AddressForm extends Component {
               onChange={this.handleOnRatingChange.bind(this)}
             />
           </div>
+          <div>{getStars(rating)}</div>
         </InputContainer>
         <div>
           <Button
