@@ -13,7 +13,7 @@ const Star = styled.div`
 export const getStars = rating => {
   let ratingStars = [];
   for (let index = 0; index < rating; index++) {
-    ratingStars.push(<Star key={index} />);
+    ratingStars.push(<Star className="App__Star" key={index} />);
   }
   return ratingStars;
 };

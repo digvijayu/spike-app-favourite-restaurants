@@ -50,8 +50,8 @@ context('App Tests', () => {
       .should('contain', 'The Fence');
     firstItem.get('.RestaurantList__item-favourite-food')
       .should('contain', 'Burgers');
-    firstItem.get('.RestaurantList__item-rating')
-      .should('contain', '4');
+    firstItem.get('.App__Star')
+      .should('have.length', 4);
     firstItem.get('.RestaurantList__item-remove')
       .should('be.visible');
 
@@ -67,8 +67,8 @@ context('App Tests', () => {
       .should('contain', 'The Fence');
     firstItem.get('.RestaurantList__item-favourite-food')
       .should('contain', 'Burgers');
-    firstItem.get('.RestaurantList__item-rating')
-      .should('contain', '4');
+    firstItem.get('.App__Star')
+      .should('have.length', 4);
     firstItem.get('.RestaurantList__item-remove')
       .should('be.visible');
   });
@@ -118,13 +118,11 @@ context('App Tests', () => {
 
     // verify the items added
     cy.get('.RestaurantList__item').should('have.length', 4);
-    let secondItem = cy.get('.RestaurantList__item').eq(2);
+    let secondItem = cy.get('.RestaurantList__item').eq(2).scrollIntoView();
     secondItem.get('.RestaurantList__item-name')
       .should('contain', 'The Salt Room');
     secondItem.get('.RestaurantList__item-favourite-food')
       .should('contain', 'Seafood');
-    secondItem.get('.RestaurantList__item-rating')
-      .should('contain', '5');
     secondItem.get('.RestaurantList__item-remove')
       .should('be.visible');
   });

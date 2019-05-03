@@ -5,6 +5,7 @@ import {
   removeRestaurant,
   selectRestaurant
 } from './../../store/restaurants/actions';
+import { getStars } from './../../utils/Star';
 
 const RestaurantListItem = styled.div`
   border-bottom: 1px solid #ccc;
@@ -86,7 +87,7 @@ class RestaurantList extends Component {
               {restaurant.favouriteFood}
             </RestaurantFood>
             <RestaurantRating className="RestaurantList__item-rating">
-              {restaurant.rating}
+              {getStars(restaurant.rating)}
             </RestaurantRating>
             <RemoveButton
               className="RestaurantList__item-remove"
