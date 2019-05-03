@@ -51,4 +51,4 @@ Builds the app for production to the `build` folder.
 ![Adding a favourite restaurant](docs/May-03-2019%2003-05-33.gif)
 
 ### Cypress Tests
-![Cypress Tests](docs/CypressTests.gif)
+![Cypress Tests](docs/May-03-2019%2003-13-01.gif)
