@@ -7,6 +7,7 @@ https://spike-app-favourite-restaurants-k6g93jcy1.now.sh/
 ## How to run in Local
 1. Install the dependencies using `npm install`
 2. Go to file `src/utils/constants` and replace the string `ENTER_GOOGLE_MAPS_KEY_HERE` with your google maps key
+2. Go to file `public/index.html` and replace the string `ENTER_GOOGLE_MAPS_KEY_HERE` with your google maps key
 3. Start the server using `npm start`
 
 ## Available Scripts
@@ -43,7 +44,7 @@ Builds the app for production to the `build` folder.
 - The code will be formatted automatically before the commit
 - The application is deployed using [Now](https://zeit.co/now) on below link
   https://spike-app-favourite-restaurants-k6g93jcy1.now.sh/
-  
+
 ## Demo Videos
 ### Adding a favourite restaurant
 ![Adding a favourite restaurant](docs/AddingFavouriteRestaurants.gif)
