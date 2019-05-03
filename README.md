@@ -2,7 +2,7 @@
 Displays list of restaurants. Built using React, Redux and CSS-in-JS
 
 ## Live Demo
-https://spike-app-favourite-restaurants-k6g93jcy1.now.sh/
+https://spike-app-favourite-restaurants.digvijayu.now.sh/
 
 ## How to run in Local
 1. Install the dependencies using `npm install`
