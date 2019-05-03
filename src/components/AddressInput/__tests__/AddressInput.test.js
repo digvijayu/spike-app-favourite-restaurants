@@ -5,24 +5,18 @@ import Adapter from 'enzyme-adapter-react-16';
 import 'jest-styled-components';
 import AddressInput from './../AddressInput';
 import testProvider from './../../../helpers/testProvider';
+import mapConfig from './../../../helpers/mapConfig';
+
+mapConfig();
 
 configure({ adapter: new Adapter() });
 
 it('should render the address input', () => {
   const cb = jest.fn();
-  const tree = reactRenderer
-    .create(<AddressInput name={'Mock Restaurant Name'} onChange={cb} />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it('should invoke on change when changed', () => {
-  const cb = jest.fn();
-  const input = mount(
+  const { jsx } = testProvider(
     <AddressInput name={'Mock Restaurant Name'} onChange={cb} />
   );
-  input.find('input').simulate('change', { target: { value: 'newVal' } });
-  expect(cb.mock.calls.length).toBe(1);
-  expect(cb.mock.calls[0][0]).toBe('newVal');
+  const tree = reactRenderer.create(jsx).toJSON();
+
+  expect(tree).toMatchSnapshot();
 });

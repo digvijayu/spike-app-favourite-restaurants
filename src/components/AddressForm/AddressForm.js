@@ -42,6 +42,10 @@ const Input = styled.input`
   &:focussed {
     border: 2px solid #aaa;
   }
+
+  &:selected {
+    border: 2px solid #aaa;
+  }
 `;
 
 const Label = styled.div`
@@ -77,10 +81,6 @@ const Button = styled.button`
   }
 `;
 
-const LocateContainer = styled.div`
-  margin-top: 0.5rem;
-`;
-
 const LocatedText = styled.div`
   margin-top: 0.5rem;
   font-size: 0.6rem;
@@ -88,8 +88,8 @@ const LocatedText = styled.div`
 `;
 
 class AddressForm extends Component {
-  handleOnNameChange(e) {
-    this.props.changeName(e.target.value);
+  handleOnNameChange(name) {
+    this.props.changeName(name);
   }
 
   handleOnFavouriteFoodChange(e) {
@@ -124,11 +124,8 @@ class AddressForm extends Component {
         <InputContainer>
           <Label>Address*</Label>
           <div>
-            <AddressInput onChange={this.handleOnNameChange.bind(this)} />
-            <Input
-              className="AddressForm__name-input"
-              type="text"
-              value={name}
+            <AddressInput
+              name={name}
               onChange={this.handleOnNameChange.bind(this)}
             />
           </div>
@@ -138,16 +135,6 @@ class AddressForm extends Component {
               Favourites.
             </LocatedText>
           )}
-          {!geoLocation && (
-            <LocateContainer>
-              <Button
-                className="AddressForm__locate-button"
-                disabled={!!!name}
-                onClick={this.handleOnLoadClick.bind(this)}>
-                Locate
-              </Button>
-            </LocateContainer>
-          )}
         </InputContainer>
         <InputContainer>
           <Label>Favourite Food*</Label>
@@ -156,6 +143,7 @@ class AddressForm extends Component {
               className="AddressForm__favourite-food-input"
               type="text"
               value={favouriteFood}
+              placeholder="Favourite Food"
               onChange={this.handleOnFavouriteFoodChange.bind(this)}
             />
           </div>

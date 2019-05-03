@@ -7,11 +7,10 @@ context('App Tests', () => {
 
   it('should launch the app and initialise it', () => {
     // verify initialization the form elements
-    cy.get('.AddressForm__name-input').should('be.empty');
+    cy.get('.google-places-autocomplete__input').should('be.empty');
     cy.get('.AddressForm__favourite-food-input').should('be.empty');
     cy.get('.AddressForm__rating-input').should('be.empty');
     cy.get('.AddressForm__located-text').should('not.exist');
-    cy.get('.AddressForm__locate-button').should('be.disabled');
     cy.get('.AddressForm__add-to-favourite-button').should('be.disabled');
 
     // verify initialization of the list
@@ -20,7 +19,7 @@ context('App Tests', () => {
 
   it('should be able to locate and add a restaurant', () => {
     // enter info
-    cy.get('.AddressForm__name-input').type('The Fence, 67-69 Cowcross St, Farringdon, London EC1M 6BP');
+    cy.get('.google-places-autocomplete__input').type('The Fence');
     cy.get('.AddressForm__favourite-food-input').type('Burgers');
     cy.get('.AddressForm__rating-input').then(($range) => {
       // get the DOM node
@@ -32,11 +31,10 @@ context('App Tests', () => {
     });
 
     cy.get('.AddressForm__located-text').should('not.be.visible');
-    cy.get('.AddressForm__locate-button').should('be.enabled');
     cy.get('.AddressForm__add-to-favourite-button').should('be.disabled');
 
     // locate the restaurant
-    cy.get('.AddressForm__locate-button').click();
+    cy.get('.google-places-autocomplete__suggestion').eq(0).click()
     cy.get('.AddressForm__located-text').should('be.visible');
     cy.get('.AddressForm__locate-button').should('not.be.visible');
     cy.get('.AddressForm__add-to-favourite-button').should('be.enabled');
@@ -49,7 +47,7 @@ context('App Tests', () => {
     cy.get('.RestaurantList__item').should('have.length', 1);
     let firstItem = cy.get('.RestaurantList__item').first();
     firstItem.get('.RestaurantList__item-name')
-      .should('contain', 'The Fence, 67-69 Cowcross St, Farringdon, London EC1M 6BP');
+      .should('contain', 'The Fence');
     firstItem.get('.RestaurantList__item-favourite-food')
       .should('contain', 'Burgers');
     firstItem.get('.RestaurantList__item-rating')
@@ -66,7 +64,7 @@ context('App Tests', () => {
     cy.get('.RestaurantList__item').should('have.length', 1);
     let firstItem = cy.get('.RestaurantList__item').first();
     firstItem.get('.RestaurantList__item-name')
-      .should('contain', 'The Fence, 67-69 Cowcross St, Farringdon, London EC1M 6BP');
+      .should('contain', 'The Fence');
     firstItem.get('.RestaurantList__item-favourite-food')
       .should('contain', 'Burgers');
     firstItem.get('.RestaurantList__item-rating')
@@ -76,7 +74,7 @@ context('App Tests', () => {
   });
 
   it('should be able to add two more items', () => {
-    cy.get('.AddressForm__name-input').type('LEON, 7 Canvey St The Blue Fin Building, London SE1 9AN');
+    cy.get('.google-places-autocomplete__input').clear().type('LEON, farrington');
     cy.get('.AddressForm__favourite-food-input').type('Wraps');
     cy.get('.AddressForm__rating-input').then(($range) => {
       // get the DOM node
@@ -87,11 +85,10 @@ context('App Tests', () => {
       range.dispatchEvent(new Event('change', { value: 3, bubbles: true }));
     });
 
-    cy.get('.AddressForm__locate-button').click();
-    cy.get('.AddressForm__locate-button').should('not.be.visible');
+    cy.get('.google-places-autocomplete__suggestion').eq(0).click()
     cy.get('.AddressForm__add-to-favourite-button').click();
 
-    cy.get('.AddressForm__name-input').type('The Salt Room, 106 Kings Rd, Brighton BN1 2FU');
+    cy.get('.google-places-autocomplete__input').clear().type('The Salt Room');
     cy.get('.AddressForm__favourite-food-input').type('Seafood');
     cy.get('.AddressForm__rating-input').then(($range) => {
       // get the DOM node
@@ -102,11 +99,10 @@ context('App Tests', () => {
       range.dispatchEvent(new Event('change', { value: 5, bubbles: true }));
     });
 
-    cy.get('.AddressForm__locate-button').click();
-    cy.get('.AddressForm__locate-button').should('not.be.visible');
+    cy.get('.google-places-autocomplete__suggestion').eq(0).click()
     cy.get('.AddressForm__add-to-favourite-button').click();
 
-    cy.get('.AddressForm__name-input').type('Icebergs Dining Room and Bar, 473F+XP Bondi Beach, New South Wales, Australia');
+    cy.get('.google-places-autocomplete__input').clear().type('Icebergs Dining Room and Bar');
     cy.get('.AddressForm__favourite-food-input').type('Seafood');
     cy.get('.AddressForm__rating-input').then(($range) => {
       // get the DOM node
@@ -117,15 +113,14 @@ context('App Tests', () => {
       range.dispatchEvent(new Event('change', { value: 4, bubbles: true }));
     });
 
-    cy.get('.AddressForm__locate-button').click();
-    cy.get('.AddressForm__locate-button').should('not.be.visible');
+    cy.get('.google-places-autocomplete__suggestion').eq(0).click()
     cy.get('.AddressForm__add-to-favourite-button').click();
 
     // verify the items added
     cy.get('.RestaurantList__item').should('have.length', 4);
     let secondItem = cy.get('.RestaurantList__item').eq(2);
     secondItem.get('.RestaurantList__item-name')
-      .should('contain', 'The Salt Room, 106 Kings Rd, Brighton BN1 2FU');
+      .should('contain', 'The Salt Room');
     secondItem.get('.RestaurantList__item-favourite-food')
       .should('contain', 'Seafood');
     secondItem.get('.RestaurantList__item-rating')
@@ -150,11 +145,5 @@ context('App Tests', () => {
     cy.get('.RestaurantList__item .RestaurantList__item-remove').eq(0).click();
 
     cy.get('.RestaurantList__no-items-text').should('be.visible');
-  });
-
-  it('should display error banner when the location is not found', () => {
-    cy.get('.AddressForm__name-input').type('this address does not exist');
-    cy.get('.AddressForm__locate-button').click();
-    cy.get('.ErrorBanner').should('be.visible');
   });
 });
